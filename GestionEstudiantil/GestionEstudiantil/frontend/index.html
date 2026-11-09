@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gestión Estudiantil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#inicio">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg>
+      </span>
+      Gestión Estudiantil
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainNav">Menú</button>
+    <nav id="mainNav" class="main-nav">
+      <a href="#inicio">Inicio</a>
+      <a href="#estudiantes">Estudiantes</a>
+      <a href="#registro">Registrar</a>
+      <a href="#acerca">Acerca de</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="inicio" class="hero">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <h1>Todos tus estudiantes, en un solo lugar.</h1>
+          <p>Consulta, busca y registra la información académica de tu institución de forma rápida y ordenada.</p>
+          <div class="hero-actions">
+            <a class="btn btn-light" href="#registro">Registrar estudiante</a>
+            <a class="btn btn-outline" href="#estudiantes">Ver listado</a>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <span class="stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></svg></span>
+            <div><strong id="statTotal">0</strong><span>Estudiantes</span></div>
+          </div>
+          <div class="stat">
+            <span class="stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <div><strong id="statActivos">0</strong><span>Activos</span></div>
+          </div>
+          <div class="stat">
+            <span class="stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg></span>
+            <div><strong id="statPromedio">0.0</strong><span>Promedio general</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="estudiantes" class="section">
+      <div class="section-head">
+        <div>
+          <h2>Listado de estudiantes</h2>
+          <p class="sub">Busca por nombre o programa.</p>
+        </div>
+        <input type="search" id="search" placeholder="Buscar estudiante..." aria-label="Buscar estudiante">
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Estudiante</th><th>Código</th><th>Programa</th><th>Semestre</th><th>Promedio</th><th>Estado</th></tr>
+          </thead>
+          <tbody id="studentRows"></tbody>
+        </table>
+      </div>
+      <p id="emptyMsg" class="empty" hidden>No hay estudiantes que coincidan con la búsqueda.</p>
+    </section>
+
+    <section id="registro" class="section">
+      <div class="form-card">
+        <div class="form-intro">
+          <h2>Registrar estudiante</h2>
+          <p>Completa los datos y el estudiante aparecerá en el listado al instante.</p>
+          <p class="hint">Los datos se guardan solo mientras la página esté abierta.</p>
+        </div>
+        <form id="studentForm" class="student-form">
+          <label>Nombre completo<input name="nombre" type="text" placeholder="Ej: María Fernández" required></label>
+          <label>Programa
+            <select name="programa" required>
+              <option value="">Selecciona uno</option>
+              <option>Ingeniería de Software</option>
+              <option>Ingeniería Industrial</option>
+              <option>Administración</option>
+              <option>Contaduría</option>
+            </select>
+          </label>
+          <div class="row">
+            <label>Semestre<input name="semestre" type="number" min="1" max="10" required></label>
+            <label>Promedio<input name="promedio" type="number" min="0" max="5" step="0.1" required></label>
+          </div>
+          <button class="btn btn-primary" type="submit">Guardar estudiante</button>
+          <p id="formMsg" class="form-msg" role="status"></p>
+        </form>
+      </div>
+    </section>
+
+    <section id="acerca" class="section">
+      <h2>Acerca de</h2>
+      <p class="about">Proyecto académico de la asignatura de Ingeniería de Software. Esta primera versión solo incluye la interfaz; el backend y la base de datos se desarrollarán en las siguientes etapas.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Gestión Estudiantil · Primera entrega (Front-End)</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
