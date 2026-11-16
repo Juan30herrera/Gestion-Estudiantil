@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gestión Estudiantil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#inicio">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg>
+      </span>
+      Gestión Estudiantil
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainNav">Menú</button>
+    <nav id="mainNav" class="main-nav">
+      <a href="#inicio" data-nav="inicio">Inicio</a>
+      <a href="#estudiantes" data-nav="estudiantes">Estudiantes</a>
+      <a href="#cursos" data-nav="cursos">Cursos</a>
+      <a href="#notas" data-nav="notas">Notas</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- INICIO -->
+    <section class="vista" id="vista-inicio">
+      <div class="hero">
+        <div class="hero-inner">
+          <div class="hero-text">
+            <h1>Todos tus estudiantes, en un solo lugar.</h1>
+            <p>Registra estudiantes y cursos, asigna notas y consulta los promedios de tu institución.</p>
+            <div class="hero-actions">
+              <a class="btn btn-light" href="#estudiantes">Gestionar estudiantes</a>
+              <a class="btn btn-outline" href="#notas">Registrar notas</a>
+            </div>
+          </div>
+          <div class="stats">
+            <div class="stat"><span class="stat-icon" aria-hidden="true">👥</span><div><strong id="statTotal">0</strong><span>Estudiantes</span></div></div>
+            <div class="stat"><span class="stat-icon" aria-hidden="true">📚</span><div><strong id="statCursos">0</strong><span>Cursos</span></div></div>
+            <div class="stat"><span class="stat-icon" aria-hidden="true">⭐</span><div><strong id="statPromedio">0.0</strong><span>Promedio general</span></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="contenedor dash-grid">
+        <article class="card">
+          <h2>Mejores promedios</h2>
+          <ol id="topList" class="top-list"></ol>
+          <p id="topVacio" class="empty" hidden>Aún no hay notas registradas.</p>
+        </article>
+        <article class="card">
+          <h2>Estudiantes por estado</h2>
+          <ul id="estadoList" class="top-list"></ul>
+          <p class="hint">Los datos se guardan en el navegador (localStorage).</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ESTUDIANTES -->
+    <section class="vista contenedor" id="vista-estudiantes" hidden>
+      <div class="page-head"><h2>Estudiantes</h2><p class="sub">Registra, busca, edita y elimina estudiantes.</p></div>
+      <div class="card">
+        <h3 id="estTitulo">Registrar estudiante</h3>
+        <form id="estForm" novalidate>
+          <input type="hidden" id="estId">
+          <div class="form-grid">
+            <label>Código<input id="estCodigo" type="text" placeholder="Ej: E005"></label>
+            <label>Nombre completo<input id="estNombre" type="text" placeholder="Ej: María Fernández"></label>
+            <label>Correo<input id="estCorreo" type="email" placeholder="maria@correo.com"></label>
+            <label>Programa<select id="estPrograma"></select></label>
+            <label>Semestre<input id="estSemestre" type="number" min="1" max="10"></label>
+            <label>Estado
+              <select id="estEstado"><option>Activo</option><option>Inactivo</option></select>
+            </label>
+          </div>
+          <ul id="estErrores" class="form-errors" hidden></ul>
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit" id="estGuardar">Guardar estudiante</button>
+            <button class="btn btn-secondary" type="button" id="estCancelar" hidden>Cancelar edición</button>
+            <span id="estMsg" class="form-msg" role="status"></span>
+          </div>
+        </form>
+      </div>
+      <div class="toolbar">
+        <input type="search" id="estBuscar" placeholder="Buscar por nombre, código o correo..." aria-label="Buscar estudiante">
+        <select id="estFiltro" aria-label="Filtrar por programa"></select>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Estudiante</th><th>Código</th><th>Programa</th><th>Sem.</th><th>Promedio</th><th>Estado</th><th>Acciones</th></tr></thead>
+          <tbody id="estFilas"></tbody>
+        </table>
+      </div>
+      <p id="estVacio" class="empty" hidden>No hay estudiantes que coincidan.</p>
+    </section>
+
+    <!-- CURSOS -->
+    <section class="vista contenedor" id="vista-cursos" hidden>
+      <div class="page-head"><h2>Cursos</h2><p class="sub">Administra los cursos disponibles.</p></div>
+      <div class="card">
+        <h3 id="curTitulo">Registrar curso</h3>
+        <form id="curForm" novalidate>
+          <input type="hidden" id="curId">
+          <div class="form-grid">
+            <label>Código<input id="curCodigo" type="text" placeholder="Ej: C105"></label>
+            <label>Nombre del curso<input id="curNombre" type="text" placeholder="Ej: Estructuras de Datos"></label>
+            <label>Créditos<input id="curCreditos" type="number" min="1" max="6"></label>
+          </div>
+          <ul id="curErrores" class="form-errors" hidden></ul>
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Guardar curso</button>
+            <button class="btn btn-secondary" type="button" id="curCancelar" hidden>Cancelar edición</button>
+            <span id="curMsg" class="form-msg" role="status"></span>
+          </div>
+        </form>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Código</th><th>Curso</th><th>Créditos</th><th>Acciones</th></tr></thead>
+          <tbody id="curFilas"></tbody>
+        </table>
+      </div>
+      <p id="curVacio" class="empty" hidden>Aún no hay cursos registrados.</p>
+    </section>
+
+    <!-- NOTAS -->
+    <section class="vista contenedor" id="vista-notas" hidden>
+      <div class="page-head"><h2>Notas</h2><p class="sub">Asigna una nota (0.0 a 5.0) a un estudiante en un curso. Aprueba con 3.0 o más.</p></div>
+      <div class="card">
+        <h3>Registrar nota</h3>
+        <form id="notaForm" novalidate>
+          <div class="form-grid">
+            <label>Estudiante<select id="notaEstudiante"></select></label>
+            <label>Curso<select id="notaCurso"></select></label>
+            <label>Nota<input id="notaValor" type="number" min="0" max="5" step="0.1"></label>
+          </div>
+          <ul id="notaErrores" class="form-errors" hidden></ul>
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Guardar nota</button>
+            <span id="notaMsg" class="form-msg" role="status"></span>
+          </div>
+        </form>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Estudiante</th><th>Curso</th><th>Nota</th><th>Resultado</th><th>Acciones</th></tr></thead>
+          <tbody id="notaFilas"></tbody>
+        </table>
+      </div>
+      <p id="notaVacio" class="empty" hidden>Aún no hay notas registradas.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Gestión Estudiantil · Taller de Programación · Fase II (prototipo funcional)</p>
+  </footer>
+
+  <script src="js/storage.js"></script>
+  <script src="js/validaciones.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/estudiantes.js"></script>
+  <script src="js/cursos.js"></script>
+  <script src="js/notas.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
