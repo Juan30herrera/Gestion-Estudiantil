@@ -48,8 +48,15 @@ const UI = {
     return this.crear('td', '', texto);
   },
 
-  acciones(onEditar, onEliminar) {
+  acciones(onEditar, onEliminar, extra) {
     const td = this.crear('td', 'acciones');
+    if (extra) {
+      const x = this.crear('button', 'btn-mini ia', extra.texto);
+      x.type = 'button';
+      x.title = extra.titulo || extra.texto;
+      x.addEventListener('click', extra.accion);
+      td.appendChild(x);
+    }
     if (onEditar) {
       const b = this.crear('button', 'btn-mini', 'Editar');
       b.type = 'button';

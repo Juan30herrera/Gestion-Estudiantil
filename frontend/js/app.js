@@ -1,13 +1,14 @@
 // Punto de entrada: navegación entre vistas y panel de inicio.
 
 const App = {
-  vistas: ['inicio', 'estudiantes', 'cursos', 'notas'],
+  vistas: ['inicio', 'estudiantes', 'cursos', 'notas', 'ia'],
 
   iniciar() {
     Datos.iniciar();
     Estudiantes.iniciar();
     Cursos.iniciar();
     Notas.iniciar();
+    IA.iniciar();
 
     window.addEventListener('hashchange', () => this.mostrar());
     const toggle = document.getElementById('menuToggle');
@@ -28,6 +29,7 @@ const App = {
     document.querySelectorAll('[data-nav]').forEach(a => {
       a.classList.toggle('activo', a.dataset.nav === actual);
     });
+    if (actual === 'ia') IA.verEstado();
     window.scrollTo(0, 0);
   },
 
@@ -35,6 +37,7 @@ const App = {
     Estudiantes.render();
     Cursos.render();
     Notas.render();
+    IA.render();
     this.renderInicio();
   },
 

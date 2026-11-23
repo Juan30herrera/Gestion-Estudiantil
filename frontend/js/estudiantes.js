@@ -109,7 +109,8 @@ const Estudiantes = {
       tdEstado.appendChild(UI.crear('span', 'badge ' + e.estado.toLowerCase(), e.estado));
       tr.appendChild(tdEstado);
 
-      tr.appendChild(UI.acciones(() => this.editar(e), () => this.eliminar(e)));
+      tr.appendChild(UI.acciones(() => this.editar(e), () => this.eliminar(e),
+        { texto: '✨ IA', titulo: 'Analizar rendimiento con IA', accion: () => IA.analizarDesde(e.id) }));
       tbody.appendChild(tr);
     });
     document.getElementById('estVacio').hidden = lista.length > 0;

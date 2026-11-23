@@ -23,6 +23,7 @@
       <a href="#estudiantes" data-nav="estudiantes">Estudiantes</a>
       <a href="#cursos" data-nav="cursos">Cursos</a>
       <a href="#notas" data-nav="notas">Notas</a>
+      <a href="#ia" data-nav="ia">Asistente IA</a>
     </nav>
   </header>
 
@@ -33,10 +34,11 @@
         <div class="hero-inner">
           <div class="hero-text">
             <h1>Todos tus estudiantes, en un solo lugar.</h1>
-            <p>Registra estudiantes y cursos, asigna notas y consulta los promedios de tu institución.</p>
+            <p>Registra estudiantes y cursos, asigna notas y consulta los promedios y obtén análisis con inteligencia artificial.</p>
             <div class="hero-actions">
               <a class="btn btn-light" href="#estudiantes">Gestionar estudiantes</a>
               <a class="btn btn-outline" href="#notas">Registrar notas</a>
+              <a class="btn btn-outline" href="#ia">Asistente IA ✨</a>
             </div>
           </div>
           <div class="stats">
@@ -153,10 +155,44 @@
       </div>
       <p id="notaVacio" class="empty" hidden>Aún no hay notas registradas.</p>
     </section>
+
+    <!-- ASISTENTE IA -->
+    <section class="vista contenedor" id="vista-ia" hidden>
+      <div class="page-head"><h2>Asistente IA</h2><p class="sub">Analiza el rendimiento de un estudiante o haz preguntas sobre los datos de tu institución.</p></div>
+      <div id="iaEstado" class="ia-estado" role="status">Verificando conexión con la IA…</div>
+
+      <div class="card">
+        <h3>Análisis de rendimiento por estudiante</h3>
+        <div class="form-grid">
+          <label>Estudiante<select id="iaEstudiante"></select></label>
+        </div>
+        <ul id="iaErrores" class="form-errors" hidden></ul>
+        <div class="form-actions">
+          <button class="btn btn-primary" type="button" id="iaAnalizar">Analizar con IA</button>
+        </div>
+        <div id="iaAnalisis" class="ia-resultado" aria-live="polite"></div>
+      </div>
+
+      <div class="card">
+        <h3>Pregunta sobre tus datos</h3>
+        <label>Tu pregunta
+          <textarea id="iaPregunta" rows="3" maxlength="300" placeholder="Ej: ¿Qué estudiantes tienen alguna materia reprobada?"></textarea>
+        </label>
+        <div id="iaEjemplos" class="ia-ejemplos" aria-label="Preguntas de ejemplo"></div>
+        <ul id="iaConsultaErrores" class="form-errors" hidden></ul>
+        <div class="form-actions">
+          <button class="btn btn-primary" type="button" id="iaConsultar">Preguntar a la IA</button>
+          <span id="iaContador" class="hint"></span>
+        </div>
+        <div id="iaRespuesta" class="ia-resultado" aria-live="polite"></div>
+      </div>
+
+      <p class="hint">Privacidad: para el análisis solo se envían programa, semestre y notas (sin nombre ni correo). Para las preguntas se envían nombres, programas y notas, nunca correos. Las respuestas de la IA son orientativas y deben ser revisadas por una persona.</p>
+    </section>
   </main>
 
   <footer class="site-footer">
-    <p>Gestión Estudiantil · Taller de Programación · Fase II (prototipo funcional)</p>
+    <p>Gestión Estudiantil · Taller de Programación · Versión final con IA</p>
   </footer>
 
   <script src="js/storage.js"></script>
@@ -165,6 +201,7 @@
   <script src="js/estudiantes.js"></script>
   <script src="js/cursos.js"></script>
   <script src="js/notas.js"></script>
+  <script src="js/ia.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
